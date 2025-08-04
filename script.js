@@ -13,13 +13,13 @@ var gDiscountVouchers = [
     { voucherID: "65343", percentDiscount: 30 },
     { voucherID: "78328", percentDiscount: 40 },
 ];
-const gSMALL_SIZE = "smallSize";
-const gMEDIUM_SIZE = "mediumSize";
-const gLARGE_SIZE = "largeSize";
+const gSMALL_SIZE = "S";
+const gMEDIUM_SIZE = "M";
+const gLARGE_SIZE = "L";
 
-const gPIZZA_HAWAI = "pizzaHawai";
-const gPIZZA_HAISAN = "pizzaHaiSan";
-const gPIZZA_BACON = "pizzaBacon";
+const gPIZZA_HAWAI = "Pizza Hawai";
+const gPIZZA_HAISAN = "Pizza Hả Sản";
+const gPIZZA_BACON = "Pizza Bacon";
 
 var currentOrder = null;
 
@@ -101,8 +101,15 @@ function onGuiDon() {
     }
 
     console.log("=== THÔNG TIN ĐƠN HÀNG ===");
-    console.log("Combo:", currentOrder.size.size);
-    console.log("Pizza:", currentOrder.pizza.tenMonAN);
+    console.log("Combo :", currentOrder.size.size);
+    console.log("Đường kính :", currentOrder.size.duongKinh);
+    console.log("Số Lượng Sườn:", currentOrder.size.soLuongSuon);
+    console.log("Salad:", currentOrder.size.salad);
+    console.log("Số Lượng Nước ngọt:", currentOrder.size.soLuongNuocNgot);
+    console.log("Giá Tiền:", currentOrder.size.giaTien);
+    console.log("Pizza:", currentOrder.pizza.tenMonAn);
+    console.log("Nguồn gốc Pizza", currentOrder.pizza.monAn);
+    console.log("Giới Thiệu Pizza:", currentOrder.pizza.intro);
     console.log("Họ tên:", currentOrder.hoVaTen);
     console.log("Email:", currentOrder.email);
     console.log("Số điện thoại:", currentOrder.soDienThoai);
@@ -138,7 +145,7 @@ function getSize(paramSize, paramDuongKinh, paramSoLuongSuon, paramSalad, paramS
 
 function getPizza(paramTenMonAn, paramMonAn, paramIntro) {
     return {
-        tenMonAN: paramTenMonAn,
+        tenMonAn: paramTenMonAn,
         monAn: paramMonAn,
         intro: paramIntro,
         displayPizzaInfor() {
@@ -268,14 +275,21 @@ function xuLiDuLieu() {
       <h4>Thông tin đơn hàng</h4>
       <p><strong>Họ tên:</strong> ${currentOrder.hoVaTen}</p>
       <p><strong>Email:</strong> ${currentOrder.email}</p>
-       <p><strong>Số điện thoại:</strong> ${currentOrder.soDienThoai}</p>
-        <p><strong>Địa chỉ:</strong> ${currentOrder.diaChi}</p>
-        <p><strong>Lời nhắn:</strong> ${currentOrder.loiNhan || "Không có"}</p>
-        <hr>
-      <p><strong>Combo:</strong> ${currentOrder.size.size}</p>
-      <p><strong>Pizza:</strong> ${currentOrder.pizza.tenMonAN}</p>
-      <p><strong>Voucher:</strong> ${currentOrder.voucher || "Không sử dụng"} ${voucherValid ? "(Hợp lệ)" : currentOrder.voucher ? "(Không hợp lệ)" : ""}</p>
+      <p><strong>Số điện thoại:</strong> ${currentOrder.soDienThoai}</p>
+      <p><strong>Địa chỉ:</strong> ${currentOrder.diaChi}</p>
+      <p><strong>Lời nhắn:</strong> ${currentOrder.loiNhan || "Không có"}</p>
       <hr>
+      <p><strong>Kích cỡ: </strong> ${currentOrder.size.size}</p>
+      <p><strong>Đường Kính</strong> ${currentOrder.size.duongKinh}</p>
+      <p><strong>Sườn nướng: </strong> ${currentOrder.size.soLuongSuon}</p>
+      <p><strong>Salad :</strong> ${currentOrder.size.salad}</p>
+      <p><strong>Nước Ngọt</strong> ${currentOrder.size.soLuongNuocNgot}</p>
+      <hr>
+      <p><strong>Loại Pizzza: </strong> ${currentOrder.pizza.tenMonAn}</p>
+      <p><strong>Nguồn gốc Pizza: </strong> ${currentOrder.pizza.monAn}</p>
+      <p><strong>Giới thiệu về Pizza: </strong> ${currentOrder.pizza.intro}</p>
+      <hr>
+      <p><strong>Voucher:</strong> ${currentOrder.voucher || "Không sử dụng"} ${voucherValid ? "(Hợp lệ)" : currentOrder.voucher ? "(Không hợp lệ)" : ""}</p>
       <p><strong>Tổng tiền:</strong> ${total.toLocaleString()} VND</p>
       ${discount ? `<p><strong>Giảm giá:</strong> ${discount}% (${discountAmount.toLocaleString()} VND)</p>` : ''}
       <h4><strong>Thành tiền:</strong> ${finalAmount.toLocaleString()} VND</h4>
